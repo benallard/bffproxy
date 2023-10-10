@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "bffproxy"
+version = "0.1.0"
+description = ""
+authors = ["Benoît Allard <benoit.allard@gmx.de>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.31.0"
+urllib3 = "^2.0.6"
+
+[tool.poetry.scripts]
+bffproxy = 'bffproxy.server:start_server'
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
