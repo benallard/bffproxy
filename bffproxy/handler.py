@@ -1,7 +1,7 @@
 from http.server import BaseHTTPRequestHandler
 import requests
 
-target = 'amazon.de'
+target = 'en.wikipedia.com'
 
 class ProxyHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_HEAD(self):
@@ -27,14 +27,12 @@ class ProxyHTTPRequestHandler(BaseHTTPRequestHandler):
         return headers
     
     def send_resp_headers(self, resp):
-        if 'content-length' not in resp.headers and 'Content-Length' not in resp.headers:
-            print(resp.headers)
         for key in resp.headers:
             self.send_header(key, resp.headers[key])
         self.end_headers()
 
     def send_body(self, resp):
-        if 'content-length' in resp.headers:
+        if resp.headers.get('Transfer-Encoding') != 'chunked':
             while True:
                 chunk = resp.raw.read(128, False)
                 if not chunk:
